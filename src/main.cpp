@@ -16,19 +16,19 @@ int main(){
     std::vector <double> a = amat(n, ld, 2.0);
     std::vector <double> y = x;
     std::ofstream norm_gamma2;
-    norm_gamma2.open("../data/norm_gamma2.txt");
+    norm_gamma2.open("../data/norm_gamma2.csv");
 
     if(!norm_gamma2.is_open()){
         std::cerr<<"Cannot open file.\n";
         return -1;
     }
 
-    norm_gamma2 << "# step norm\n";
+    norm_gamma2 << "iteration,norm2\n";
     
     
     for(int m = 0; m < 30; m++){
         y = matvec(a, y, ld, n);
-        norm_gamma2 << m+1 <<" "<< std::fixed << std::setprecision(6) << vnorm(y) << "\n";
+        norm_gamma2 << m+1 <<","<< std::fixed << std::setprecision(6) << vnorm(y) << "\n";
     }
     norm_gamma2.close();
 
@@ -38,17 +38,17 @@ int main(){
     y = x;
 
     std::ofstream norm_gamma3;
-    norm_gamma3.open("../data/norm_gamma3.txt");
+    norm_gamma3.open("../data/norm_gamma3.csv");
 
     if(!norm_gamma3.is_open()){
         std::cerr<<"Cannot open file.\n";
         return -1;
     }
-    norm_gamma3 << "# step norm\n";
+    norm_gamma3 << "iteration,norm3\n";
     
     for(int m = 0; m < 30; m++){
         y = matvec(a, y, ld, n);
-        norm_gamma3 << m+1 <<" "<< std::fixed << std::setprecision(6) << vnorm(y) << "\n";
+        norm_gamma3 << m+1 <<","<< std::fixed << std::setprecision(6) << vnorm(y) << "\n";
     }
     
     norm_gamma3.close();
