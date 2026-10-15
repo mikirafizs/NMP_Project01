@@ -16,7 +16,7 @@ int main(){
     std::vector <double> a = amat(n, ld, 2.0);
     std::vector <double> y = x;
     std::ofstream norm_gamma2;
-    norm_gamma2.open("../data/norm_gamma2.csv");
+    norm_gamma2.open("../data/norms_gamma2.csv");
 
     if(!norm_gamma2.is_open()){
         std::cerr<<"Cannot open file.\n";
@@ -38,13 +38,13 @@ int main(){
     y = x;
 
     std::ofstream norm_gamma3;
-    norm_gamma3.open("../data/norm_gamma3.csv");
+    norm_gamma3.open("../data/norms_gamma3.csv");
 
     if(!norm_gamma3.is_open()){
         std::cerr<<"Cannot open file.\n";
         return -1;
     }
-    norm_gamma3 << "iteration,norm3\n";
+    norm_gamma3 << "iteration,norm2\n";
     
     for(int m = 0; m < 30; m++){
         y = matvec(a, y, ld, n);
