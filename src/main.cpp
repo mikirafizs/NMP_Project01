@@ -3,11 +3,12 @@
 #include <cblas.h>
 #include <fstream>
 #include <iomanip>
-#include <chrono>
+#include <time.h>
 
 int main(){
-    const size_t n = 4;
+    const size_t n = 2000;
     const size_t ld = n;
+    time_t t_start, t_end, t_statr_blas, t_end_blas;
 
     //30 times matrix vector multiplication for gamma = 2.0
 
@@ -53,25 +54,19 @@ int main(){
     norm_gamma3.close();
 
     // C = A*A Matrix-Matrix product(gamma = 3)
-
+    
+    t_start = time(NULL);
     std::vector <double> Cvec = matrix_multiply(a, a, ld, n);
-    for(size_t i = 0; i < n; i++){
-        std::cout << "[ ";
-        for(size_t j = 0; j < ld; j++){
-            std::cout << Cvec[i*ld+j]<<" ";
-        }
-        std::cout << "]\n";
-    }
-    std::cout<<"---------------------------------------------------------------------\n";
+    t_end = time(NULL);
+
     // C = A*A Matrix-Matrix product(cblas_dgemm)(gamma = 3)
+    
+    t_statr_blas = time(NULL);
     std::vector <double> Cvec_blas(n*ld, 0.0);
     cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, static_cast <int> (n), static_cast <int> (n), static_cast <int> (n), 1.0, &a[0], static_cast <int>(ld), &a[0], static_cast <int>(ld), 0.0, &Cvec_blas[0], static_cast <int>(ld));
-    for(size_t i = 0; i < n; i++){
-        std::cout << "[ ";
-        for(size_t j = 0; j < ld; j++){
-            std::cout << Cvec_blas[i*ld+j]<<" ";
-        }
-        std::cout << "]\n";
-    }
+    t_end_blas = time(NULL);
+
+    std::cout << "Time for standard matrix multiplication: " << difftime(t_end, t_start) << "\n";
+    std::cout << "Time for matrix multiplication using cblas_dgemm: " << difftime(t_end_blas, t_statr_blas) << "\n";
     return 0;
 }
