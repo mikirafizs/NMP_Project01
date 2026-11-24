@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-"""Plot existing validated post-step norm CSVs. Never executes a solver."""
 from __future__ import annotations
 import argparse, csv, math, pathlib
 import matplotlib
